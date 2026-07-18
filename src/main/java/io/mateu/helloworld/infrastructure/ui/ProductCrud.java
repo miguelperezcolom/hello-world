@@ -1,7 +1,6 @@
 package io.mateu.helloworld.infrastructure.ui;
 
 import io.mateu.core.infra.declarative.orchestrators.crud.AutoCrud;
-import io.mateu.uidl.annotations.UI;
 import io.mateu.uidl.interfaces.CrudRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
  * which in turn drives the application's use cases.
  */
 @Service
-@UI("/products")
 @RequiredArgsConstructor
 public class ProductCrud extends AutoCrud<ProductView> {
 
