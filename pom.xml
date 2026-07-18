@@ -28,11 +28,23 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <mateu.version>3.0-alpha.256</mateu.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.mateu</groupId>
+            <artifactId>mvc-core</artifactId>
+            <version>${mateu.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.mateu</groupId>
+            <artifactId>vaadin-lit</artifactId>
+            <version>${mateu.version}</version>
         </dependency>
 
         <dependency>
@@ -77,6 +89,11 @@
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
                                 </path>
+                                <path>
+                                    <groupId>io.mateu</groupId>
+                                    <artifactId>annotation-processor-mvc</artifactId>
+                                    <version>${mateu.version}</version>
+                                </path>
                             </annotationProcessorPaths>
                         </configuration>
                     </execution>
@@ -91,6 +108,11 @@
                                 <path>
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
+                                </path>
+                                <path>
+                                    <groupId>io.mateu</groupId>
+                                    <artifactId>annotation-processor-mvc</artifactId>
+                                    <version>${mateu.version}</version>
                                 </path>
                             </annotationProcessorPaths>
                         </configuration>
