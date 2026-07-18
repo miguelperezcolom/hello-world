@@ -3,8 +3,12 @@ package io.mateu.helloworld.infrastructure.ui;
 import io.mateu.helloworld.application.queries.getproduct.GetProductQuery;
 import io.mateu.helloworld.application.queries.getproducts.GetProductsQuery;
 import io.mateu.helloworld.application.queries.searchproducts.SearchProductsQuery;
+import io.mateu.helloworld.application.usecases.activateproduct.ActivateProductCommand;
+import io.mateu.helloworld.application.usecases.activateproduct.ActivateProductUseCase;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductCommand;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductUseCase;
+import io.mateu.helloworld.application.usecases.deactivateproduct.DeactivateProductCommand;
+import io.mateu.helloworld.application.usecases.deactivateproduct.DeactivateProductUseCase;
 import io.mateu.helloworld.application.usecases.deleteproduct.DeleteProductCommand;
 import io.mateu.helloworld.application.usecases.deleteproduct.DeleteProductUseCase;
 import io.mateu.helloworld.application.usecases.updateproduct.UpdateProductCommand;
@@ -33,6 +37,8 @@ public class ProductCrudRepository implements CrudRepository<ProductView> {
     private final CreateProductUseCase createProduct;
     private final UpdateProductUseCase updateProduct;
     private final DeleteProductUseCase deleteProduct;
+    private final ActivateProductUseCase activateProduct;
+    private final DeactivateProductUseCase deactivateProduct;
     private final GetProductsQuery getProducts;
     private final GetProductQuery getProduct;
     private final SearchProductsQuery searchProducts;
@@ -68,6 +74,16 @@ public class ProductCrudRepository implements CrudRepository<ProductView> {
     @Override
     public void deleteAllById(List<String> ids) {
         ids.forEach(id -> deleteProduct.handle(new DeleteProductCommand(id)));
+    }
+
+    /** Activates every product in the given id list, one use-case call each. */
+    public void activate(List<String> ids) {
+        ids.forEach(id -> activateProduct.handle(new ActivateProductCommand(id)));
+    }
+
+    /** Deactivates every product in the given id list, one use-case call each. */
+    public void deactivate(List<String> ids) {
+        ids.forEach(id -> deactivateProduct.handle(new DeactivateProductCommand(id)));
     }
 
     private static ProductView toView(Product product) {
