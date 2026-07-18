@@ -21,4 +21,9 @@ public record ProductView(
         BigDecimal price,
         String currency,
         @ReadOnly boolean active) implements Identifiable {
+
+    @Override
+    public String toString() {
+        return name != null?name:"No name";
+    }
 }
