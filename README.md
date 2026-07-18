@@ -18,6 +18,7 @@ El tutorial es una **progresión lineal de ramas**: cada rama añade un paso enc
 | **`02-add-crud`** | Un CRUD de productos como adaptador de entrada: `ProductView` (DTO `Identifiable`), `ProductCrudRepository` (`CrudRepository` que delega en los casos de uso) y `ProductCrud extends AutoCrud`. | `/products` | Generar un CRUD con `AutoCrud` conectado al dominio, sin que este se entere de la UI |
 | **`03-convert-to-app-with-menu`** | Convierte lo anterior en una app multipantalla: una clase `App` (shell con `@Menu`), `Home` pasa a `@Route("/home")` y el CRUD entra como opción de menú. | `/` (app con menú), `/home` | Estructurar varias pantallas en una aplicación con navegación |
 | **`04-add-validations`** | Validaciones de formulario: constraints de Jakarta Bean Validation (`@NotEmpty`, `@Size`, `@NotNull`, `@Min`) sobre los campos de `ProductView`. | `/` → menú Productos (crear/editar) | Cómo Mateu refleja las constraints en el formulario, dejando las invariantes de negocio en el dominio |
+| **`05-add-filters`** | Filtros de búsqueda en el listado: `ProductCrud` pasa a `FilteredAutoCrud` con un formulario de filtros `ProductFilters` (texto sobre nombre/SKU + "solo activos"); el filtrado es una query de aplicación (`SearchProductsQuery`). | `/` → menú Productos (barra de filtros) | Añadir filtros a un listado con `FilteredAutoCrud`, separando el tipo de filtro del de fila |
 
 ## Cómo recorrer el tutorial
 
@@ -29,6 +30,7 @@ git checkout 01-add-home
 git diff 01-add-home 02-add-crud
 git diff 02-add-crud 03-convert-to-app-with-menu
 git diff 03-convert-to-app-with-menu 04-add-validations
+git diff 04-add-validations 05-add-filters
 ```
 
 Cada paso es autocontenido: puedes hacer `checkout` de una rama y ejecutar la app en ese punto.
@@ -45,8 +47,11 @@ Luego abre el navegador:
 - En `02-add-crud`: http://localhost:8080/products (CRUD de productos)
 - En `03-convert-to-app-with-menu`: http://localhost:8080/ (app con menú)
 - En `04-add-validations`: http://localhost:8080/ → menú Productos → crear/editar (el formulario valida)
+- En `05-add-filters`: http://localhost:8080/ → menú Productos (barra de filtros sobre el listado)
 
 > En `main` la app arranca pero todavía no hay pantallas: la UI aparece a partir de `01-add-home`.
+
+> **Al cambiar de rama**, ejecuta `./mvnw clean spring-boot:run`. El annotation processor de Mateu genera controladores a partir de las anotaciones `@UI`/`@Route`; si quedan clases generadas de otra rama en `target/`, pueden chocar (p. ej. `Ambiguous mapping` en `GET /`). Un `clean` lo evita.
 
 ## Arquitectura del proyecto base
 
