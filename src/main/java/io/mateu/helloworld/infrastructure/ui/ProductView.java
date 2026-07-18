@@ -5,6 +5,7 @@ import io.mateu.uidl.annotations.HiddenInCreate;
 import io.mateu.uidl.annotations.Multiline;
 import io.mateu.uidl.annotations.ReadOnly;
 import io.mateu.uidl.interfaces.Identifiable;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.math.BigDecimal;
 
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 public record ProductView(
         @ReadOnly @HiddenInCreate String id,
         @EditableOnlyWhenCreating String sku,
+        @NotEmpty
         String name,
         @Multiline String description,
         BigDecimal price,
@@ -24,6 +26,6 @@ public record ProductView(
 
     @Override
     public String toString() {
-        return name != null?name:"No name";
+        return name != null?name:"New product";
     }
 }
