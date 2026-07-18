@@ -19,6 +19,7 @@ El tutorial es una **progresión lineal de ramas**: cada rama añade un paso enc
 | **`03-convert-to-app-with-menu`** | Convierte lo anterior en una app multipantalla: una clase `App` (shell con `@Menu`), `Home` pasa a `@Route("/home")` y el CRUD entra como opción de menú. | `/` (app con menú), `/home` | Estructurar varias pantallas en una aplicación con navegación |
 | **`04-add-validations`** | Validaciones de formulario: constraints de Jakarta Bean Validation (`@NotEmpty`, `@Size`, `@NotNull`, `@Min`) sobre los campos de `ProductView`. | `/` → menú Productos (crear/editar) | Cómo Mateu refleja las constraints en el formulario, dejando las invariantes de negocio en el dominio |
 | **`05-add-filters`** | Filtros de búsqueda en el listado: `ProductCrud` pasa a `FilteredAutoCrud` con un formulario de filtros `ProductFilters` (texto sobre nombre/SKU + "solo activos"); el filtrado es una query de aplicación (`SearchProductsQuery`). | `/` → menú Productos (barra de filtros) | Añadir filtros a un listado con `FilteredAutoCrud`, separando el tipo de filtro del de fila |
+| **`06-add-actions`** | Acciones de listado: dos botones `@ListToolbarButton` (`activate` / `deactivate`) sobre las filas seleccionadas, que delegan en casos de uso nuevos (`ActivateProductUseCase` / `DeactivateProductUseCase`) y devuelven un `Message`. El campo `active` es `@ReadOnly` en el formulario. | `/` → menú Productos (barra de acciones sobre selección) | Añadir acciones a un CRUD con `@ListToolbarButton`, recibiendo las filas seleccionadas y devolviendo feedback, sin tocar el dominio |
 
 ## Cómo recorrer el tutorial
 
@@ -31,6 +32,7 @@ git diff 01-add-home 02-add-crud
 git diff 02-add-crud 03-convert-to-app-with-menu
 git diff 03-convert-to-app-with-menu 04-add-validations
 git diff 04-add-validations 05-add-filters
+git diff 05-add-filters 06-add-actions
 ```
 
 Cada paso es autocontenido: puedes hacer `checkout` de una rama y ejecutar la app en ese punto.
@@ -48,6 +50,7 @@ Luego abre el navegador:
 - En `03-convert-to-app-with-menu`: http://localhost:8080/ (app con menú)
 - En `04-add-validations`: http://localhost:8080/ → menú Productos → crear/editar (el formulario valida)
 - En `05-add-filters`: http://localhost:8080/ → menú Productos (barra de filtros sobre el listado)
+- En `06-add-actions`: http://localhost:8080/ → menú Productos → selecciona filas y pulsa "Activate" / "Deactivate"
 
 > En `main` la app arranca pero todavía no hay pantallas: la UI aparece a partir de `01-add-home`.
 
