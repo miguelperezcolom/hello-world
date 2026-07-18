@@ -29,6 +29,13 @@
     <properties>
         <java.version>21</java.version>
         <mateu.version>3.0-alpha.256</mateu.version>
+        <!--
+          The design system (web renderer) is a single dependency. Swap this value
+          to render the very same backend with a different look & feel — no Java
+          changes. Options: vaadin-lit · redhat-lit · sapui5-lit · redwood-oj-lit ·
+          slds-lit. See docs/design-systems-and-native.md.
+        -->
+        <mateu.designSystem>vaadin-lit</mateu.designSystem>
     </properties>
     <dependencies>
         <dependency>
@@ -43,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>io.mateu</groupId>
-            <artifactId>vaadin-lit</artifactId>
+            <artifactId>${mateu.designSystem}</artifactId>
             <version>${mateu.version}</version>
         </dependency>
 
