@@ -27,7 +27,7 @@ class CreateProductUseCaseTest {
     @Test
     void createsAndPersistsProduct() {
         ProductId id = createProduct.handle(
-                new CreateProductCommand("sku-1", "Keyboard", "Mechanical", new BigDecimal("49.90"), "EUR"));
+                new CreateProductCommand("sku-1", "Keyboard", "Mechanical", new BigDecimal("49.90"), "EUR", null));
 
         Product stored = new InMemoryGetProductQuery(repository).handle(id).orElseThrow();
         assertEquals("SKU-1", stored.sku().value());
@@ -35,9 +35,9 @@ class CreateProductUseCaseTest {
 
     @Test
     void rejectsDuplicateSku() {
-        createProduct.handle(new CreateProductCommand("sku-1", "Keyboard", "", new BigDecimal("49.90"), "EUR"));
+        createProduct.handle(new CreateProductCommand("sku-1", "Keyboard", "", new BigDecimal("49.90"), "EUR", null));
 
         assertThrows(DomainException.class, () -> createProduct.handle(
-                new CreateProductCommand("SKU-1", "Another", "", new BigDecimal("10"), "EUR")));
+                new CreateProductCommand("SKU-1", "Another", "", new BigDecimal("10"), "EUR", null)));
     }
 }

@@ -24,6 +24,7 @@ public class CreateProductUseCase {
         }
         Money price = Money.of(command.price(), command.currency());
         Product product = Product.create(sku, command.name(), command.description(), price);
+        product.assignCategory(command.categoryId());
         products.save(product);
         return product.id();
     }

@@ -2,6 +2,7 @@ package io.mateu.helloworld.infrastructure.ui;
 
 import io.mateu.uidl.annotations.EditableOnlyWhenCreating;
 import io.mateu.uidl.annotations.HiddenInCreate;
+import io.mateu.uidl.annotations.Lookup;
 import io.mateu.uidl.annotations.ReadOnly;
 import io.mateu.uidl.annotations.Section;
 import io.mateu.uidl.annotations.Stereotype;
@@ -35,6 +36,8 @@ public record ProductView(
         @ReadOnly @HiddenInCreate String id,
         @EditableOnlyWhenCreating @NotEmpty @Size(max = 40) String sku,
         @NotEmpty @Size(max = 100) String name,
+        @Section("Classification")
+        @Lookup(search = CategoryOptionsSupplier.class, label = CategoryLabelSupplier.class) String categoryId,
         @Section("Description")
         @Stereotype(FieldStereotype.textarea) @Size(max = 500) String description,
         @Section("Pricing")

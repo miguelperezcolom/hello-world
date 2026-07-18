@@ -3,6 +3,7 @@ package io.mateu.helloworld.infrastructure.ui;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductCommand;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductUseCase;
 import io.mateu.uidl.annotations.Button;
+import io.mateu.uidl.annotations.Lookup;
 import io.mateu.uidl.annotations.Multiline;
 import io.mateu.uidl.data.Message;
 import jakarta.validation.constraints.Min;
@@ -45,10 +46,12 @@ public class NewProductForm {
     BigDecimal price;
     @NotEmpty
     String currency = "EUR";
+    @Lookup(search = CategoryOptionsSupplier.class, label = CategoryLabelSupplier.class)
+    String categoryId;
 
     @Button
     public Message create() {
-        createProduct.handle(new CreateProductCommand(sku, name, description, price, currency));
+        createProduct.handle(new CreateProductCommand(sku, name, description, price, currency, categoryId));
         return Message.builder()
                 .text("Product '" + name + "' created")
                 .build();

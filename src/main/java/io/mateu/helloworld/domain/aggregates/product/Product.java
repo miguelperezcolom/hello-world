@@ -19,6 +19,7 @@ public class Product {
     private String description;
     private Money price;
     private boolean active;
+    private String categoryId;
 
     private Product(ProductId id, Sku sku, String name, String description, Money price, boolean active) {
         this.id = Objects.requireNonNull(id, "id");
@@ -50,6 +51,14 @@ public class Product {
 
     public void updateDescription(String newDescription) {
         this.description = normalisedDescription(newDescription);
+    }
+
+    /**
+     * Associates this product with a category (referenced by id) or clears it
+     * when {@code null}. Aggregates reference each other by identity only.
+     */
+    public void assignCategory(String categoryId) {
+        this.categoryId = (categoryId == null || categoryId.isBlank()) ? null : categoryId;
     }
 
     public void activate() {
@@ -93,6 +102,11 @@ public class Product {
 
     public boolean isActive() {
         return active;
+    }
+
+    /** Id of the category this product belongs to, or {@code null} if unassigned. */
+    public String categoryId() {
+        return categoryId;
     }
 
     @Override

@@ -8,5 +8,6 @@ public record UpdateProductCommand(
         String name,
         String description,
         BigDecimal price,
-        String currency) {
+        String currency,
+        String categoryId) {
 }

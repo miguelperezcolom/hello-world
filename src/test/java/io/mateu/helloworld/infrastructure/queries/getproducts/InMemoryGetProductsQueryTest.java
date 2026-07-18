@@ -17,8 +17,8 @@ class InMemoryGetProductsQueryTest {
     void listsAllProducts() {
         InMemoryProductRepository repository = new InMemoryProductRepository();
         CreateProductUseCase createProduct = new CreateProductUseCase(repository);
-        createProduct.handle(new CreateProductCommand("sku-1", "Keyboard", "", new BigDecimal("49.90"), "EUR"));
-        createProduct.handle(new CreateProductCommand("sku-2", "Mouse", "", new BigDecimal("19.90"), "EUR"));
+        createProduct.handle(new CreateProductCommand("sku-1", "Keyboard", "", new BigDecimal("49.90"), "EUR", null));
+        createProduct.handle(new CreateProductCommand("sku-2", "Mouse", "", new BigDecimal("19.90"), "EUR", null));
 
         GetProductsQuery getProducts = new InMemoryGetProductsQuery(repository);
 

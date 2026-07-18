@@ -12,6 +12,9 @@ public class App {
     ProductCrud products;
 
     @Menu
+    CategoryCrud categories;
+
+    @Menu
     NewProductForm newProduct;
 
 }

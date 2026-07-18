@@ -29,7 +29,7 @@ class ChangeProductPriceUseCaseTest {
     @Test
     void changesPriceOfExistingProduct() {
         ProductId id = new CreateProductUseCase(repository).handle(
-                new CreateProductCommand("sku-1", "Keyboard", "", new BigDecimal("49.90"), "EUR"));
+                new CreateProductCommand("sku-1", "Keyboard", "", new BigDecimal("49.90"), "EUR", null));
 
         changePrice.handle(new ChangeProductPriceCommand(id.toString(), new BigDecimal("59.90"), "EUR"));
 

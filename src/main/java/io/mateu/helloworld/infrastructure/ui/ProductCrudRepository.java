@@ -63,11 +63,13 @@ public class ProductCrudRepository implements CrudRepository<ProductView> {
     public String save(ProductView view) {
         if (view.id() == null || view.id().isBlank()) {
             ProductId created = createProduct.handle(new CreateProductCommand(
-                    view.sku(), view.name(), view.description(), view.price(), view.currency()));
+                    view.sku(), view.name(), view.description(), view.price(), view.currency(),
+                    view.categoryId()));
             return created.toString();
         }
         updateProduct.handle(new UpdateProductCommand(
-                view.id(), view.name(), view.description(), view.price(), view.currency()));
+                view.id(), view.name(), view.description(), view.price(), view.currency(),
+                view.categoryId()));
         return view.id();
     }
 
@@ -91,6 +93,7 @@ public class ProductCrudRepository implements CrudRepository<ProductView> {
                 product.id().toString(),
                 product.sku().value(),
                 product.name(),
+                product.categoryId(),
                 product.description(),
                 product.price().amount(),
                 product.price().currency().getCurrencyCode(),

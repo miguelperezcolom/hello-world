@@ -23,6 +23,7 @@ public class UpdateProductUseCase {
         product.rename(command.name());
         product.updateDescription(command.description());
         product.changePrice(Money.of(command.price(), command.currency()));
+        product.assignCategory(command.categoryId());
         products.save(product);
     }
 }
