@@ -3,9 +3,12 @@ package io.mateu.helloworld.application.usecases.deleteproduct;
 import io.mateu.helloworld.application.out.ProductRepository;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
 /** Removes a product from the catalog. */
+@Service
 public class DeleteProductUseCase {
 
     private final ProductRepository products;

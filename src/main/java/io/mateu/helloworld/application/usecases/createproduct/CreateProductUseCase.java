@@ -7,9 +7,12 @@ import io.mateu.helloworld.domain.aggregates.product.valueobjects.Money;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.Sku;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
 /** Registers a new product in the catalog, enforcing SKU uniqueness. */
+@Service
 public class CreateProductUseCase {
 
     private final ProductRepository products;

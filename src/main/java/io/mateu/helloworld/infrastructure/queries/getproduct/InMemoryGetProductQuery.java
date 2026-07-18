@@ -5,10 +5,13 @@ import io.mateu.helloworld.application.queries.getproduct.GetProductQuery;
 import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 import java.util.Optional;
 
 /** Infrastructure implementation of the {@link GetProductQuery} read side. */
+@Component
 public class InMemoryGetProductQuery implements GetProductQuery {
 
     private final ProductRepository products;

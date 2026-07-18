@@ -6,9 +6,12 @@ import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.Money;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
 /** Changes the price of an existing product. */
+@Service
 public class ChangeProductPriceUseCase {
 
     private final ProductRepository products;

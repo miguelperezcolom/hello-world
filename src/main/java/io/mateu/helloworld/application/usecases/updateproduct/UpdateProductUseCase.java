@@ -6,9 +6,12 @@ import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.Money;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
 /** Updates the editable details of an existing product (name, description, price). */
+@Service
 public class UpdateProductUseCase {
 
     private final ProductRepository products;
