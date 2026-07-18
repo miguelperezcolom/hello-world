@@ -2,6 +2,7 @@ package io.mateu.helloworld.infrastructure.ui;
 
 import io.mateu.helloworld.application.queries.getproduct.GetProductQuery;
 import io.mateu.helloworld.application.queries.getproducts.GetProductsQuery;
+import io.mateu.helloworld.application.queries.searchproducts.SearchProductsQuery;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductCommand;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductUseCase;
 import io.mateu.helloworld.application.usecases.deleteproduct.DeleteProductCommand;
@@ -10,6 +11,7 @@ import io.mateu.helloworld.application.usecases.updateproduct.UpdateProductComma
 import io.mateu.helloworld.application.usecases.updateproduct.UpdateProductUseCase;
 import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
+import io.mateu.uidl.data.ListingData;
 import io.mateu.uidl.interfaces.CrudRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -33,10 +35,17 @@ public class ProductCrudRepository implements CrudRepository<ProductView> {
     private final DeleteProductUseCase deleteProduct;
     private final GetProductsQuery getProducts;
     private final GetProductQuery getProduct;
+    private final SearchProductsQuery searchProducts;
 
     @Override
     public List<ProductView> findAll() {
         return getProducts.handle().stream().map(ProductCrudRepository::toView).toList();
+    }
+
+    /** Filtered listing used by the CRUD's filter form. */
+    public ListingData<ProductView> search(String text, boolean onlyActive) {
+        return ListingData.from(
+                searchProducts.handle(text, onlyActive).stream().map(ProductCrudRepository::toView).toList());
     }
 
     @Override
