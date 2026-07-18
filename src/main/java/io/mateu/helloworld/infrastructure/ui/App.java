@@ -11,4 +11,7 @@ public class App {
     @Menu
     ProductCrud products;
 
+    @Menu
+    NewProductForm newProduct;
+
 }
