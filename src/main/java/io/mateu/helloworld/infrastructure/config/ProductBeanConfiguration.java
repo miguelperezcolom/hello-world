@@ -5,9 +5,12 @@ import io.mateu.helloworld.application.queries.getproduct.GetProductQuery;
 import io.mateu.helloworld.application.queries.getproducts.GetProductsQuery;
 import io.mateu.helloworld.application.usecases.changeproductprice.ChangeProductPriceUseCase;
 import io.mateu.helloworld.application.usecases.createproduct.CreateProductUseCase;
+import io.mateu.helloworld.application.usecases.deleteproduct.DeleteProductUseCase;
+import io.mateu.helloworld.application.usecases.updateproduct.UpdateProductUseCase;
 import io.mateu.helloworld.infrastructure.persistence.InMemoryProductRepository;
 import io.mateu.helloworld.infrastructure.queries.getproduct.InMemoryGetProductQuery;
 import io.mateu.helloworld.infrastructure.queries.getproducts.InMemoryGetProductsQuery;
+import io.mateu.helloworld.infrastructure.ui.ProductCrudRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,6 +38,16 @@ public class ProductBeanConfiguration {
     }
 
     @Bean
+    public UpdateProductUseCase updateProductUseCase(ProductRepository productRepository) {
+        return new UpdateProductUseCase(productRepository);
+    }
+
+    @Bean
+    public DeleteProductUseCase deleteProductUseCase(ProductRepository productRepository) {
+        return new DeleteProductUseCase(productRepository);
+    }
+
+    @Bean
     public GetProductsQuery getProductsQuery(ProductRepository productRepository) {
         return new InMemoryGetProductsQuery(productRepository);
     }
@@ -42,5 +55,16 @@ public class ProductBeanConfiguration {
     @Bean
     public GetProductQuery getProductQuery(ProductRepository productRepository) {
         return new InMemoryGetProductQuery(productRepository);
+    }
+
+    @Bean
+    public ProductCrudRepository productCrudRepository(
+            CreateProductUseCase createProductUseCase,
+            UpdateProductUseCase updateProductUseCase,
+            DeleteProductUseCase deleteProductUseCase,
+            GetProductsQuery getProductsQuery,
+            GetProductQuery getProductQuery) {
+        return new ProductCrudRepository(createProductUseCase, updateProductUseCase,
+                deleteProductUseCase, getProductsQuery, getProductQuery);
     }
 }
