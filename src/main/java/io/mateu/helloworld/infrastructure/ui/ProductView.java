@@ -25,7 +25,8 @@ public record ProductView(
         @ReadOnly boolean active) implements Identifiable {
 
     @Override
+    @SuppressWarnings("NullableProblems")
     public String toString() {
-        return name != null?name:"New product";
+        return name != null ? name : "New product";
     }
 }
