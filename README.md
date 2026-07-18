@@ -4,6 +4,15 @@ Repo-tutorial para aprender a usar [**Mateu**](https://mateu.io), el framework l
 
 El tutorial es una **progresión lineal de ramas**: cada rama añade un paso encima de la anterior. `main` es el punto de partida (sin Mateu) y cada rama numerada introduce una pieza nueva.
 
+## La gran idea
+
+Mateu trata la **UI como un adaptador de entrada** más (igual que una API REST o un consumidor de eventos): vive en `infrastructure/ui`, inyecta casos de uso y queries, y **nunca toca el dominio**. Escribes pantallas de forma declarativa (POJOs con anotaciones) y Mateu emite un **árbol de componentes abstracto** que un *renderer* pinta.
+
+De ahí salen dos superpoderes que este repo demuestra al final:
+
+- **No necesitas una API solo para tu UI**: la UI llama a los casos de uso directamente. Menos contratos y modelos duplicados.
+- **El mismo backend se renderiza en cualquier sitio**: distintos *design systems* web (Vaadin, SAP Fiori, Salesforce, PatternFly, Oracle) y hasta **nativo** (móvil con React Native, escritorio con el plugin de IntelliJ) — **sin cambiar Java**. Ver **[docs/design-systems-and-native.md](docs/design-systems-and-native.md)**.
+
 ## Requisitos
 
 - Java 21+
@@ -23,7 +32,7 @@ El tutorial es una **progresión lineal de ramas**: cada rama añade un paso enc
 | **`07-add-form`** | Pantalla-formulario hecha a mano (`NewProductForm`): campos + un botón `@Button create()` que llama a `CreateProductUseCase` y devuelve un `Message`. Es `@Service @Scope("prototype")` para inyectar el caso de uso teniendo estado de formulario por-petición. | `/` → menú "New product" | Construir un formulario propio (no CRUD) cuya acción llama a un caso de uso, con inyección de dependencias y estado limpio |
 | **`08-add-dashboard`** | La `Home` pasa a ser un dashboard: una fila de `MetricCard` (total / activos / inactivos) construida desde una query nueva `GetProductStatsQuery`. | `/home` | Mostrar KPIs y componentes de display alimentados por el read-side |
 | **`09-add-form-layout`** | Organiza el formulario de `ProductView` con `@Tab` / `@Section` y declara la intención de presentación con `@Stereotype` (money, textarea, toggle). | `/` → menú Productos (crear/editar) | Agrupar y dar intención a los campos, dejando que Mateu elija el control por design system |
-| **`10-add-lookup`** | Segundo agregado `Category` (puerto, repo en memoria seeded y queries) relacionado con `Product` vía `@Lookup`, con suppliers de opciones/label respaldados por queries. | `/` → menú Productos (campo Category en el form) | Relacionar agregados con `@Lookup` respaldado por servicios de consulta, sin acoplar la vista al origen de datos |
+| **`10-add-lookup`** | Segundo agregado `Category` (puerto, repo en memoria seeded y queries) **con su propio CRUD gestionable** (`CategoryCrud`, en el menú) relacionado con `Product` vía `@Lookup`, con suppliers de opciones/label respaldados por queries. | `/` → menú Categories (gestionar) y Productos (campo Category en el form) | Relacionar agregados con `@Lookup` respaldado por servicios de consulta, sin acoplar la vista al origen de datos |
 | **`11-app-shell`** | `@App(AppVariant.MENU_ON_LEFT, themeToggle=true)` + `@Title`/`@Subtitle`; la `Home` entra también al menú. | `/` (menú lateral + claro/oscuro) | Configurar el shell, la navegación y el tema como pura configuración, desacoplado de las pantallas |
 | **`12-design-systems-and-native`** | Parametriza el design system web como una sola dependencia (`mateu.designSystem`, default `vaadin-lit`) y añade `docs/design-systems-and-native.md`. **Sin cambios de Java.** | `/` (cualquier design system) | Evidenciar que el mismo backend se renderiza en cualquier design system y en nativo (móvil/escritorio) |
 
