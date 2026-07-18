@@ -7,19 +7,15 @@ import io.mateu.helloworld.domain.aggregates.product.valueobjects.Money;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.Sku;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 /** Registers a new product in the catalog, enforcing SKU uniqueness. */
 @Service
+@RequiredArgsConstructor
 public class CreateProductUseCase {
 
     private final ProductRepository products;
-
-    public CreateProductUseCase(ProductRepository products) {
-        this.products = Objects.requireNonNull(products, "products");
-    }
 
     public ProductId handle(CreateProductCommand command) {
         Sku sku = Sku.of(command.sku());

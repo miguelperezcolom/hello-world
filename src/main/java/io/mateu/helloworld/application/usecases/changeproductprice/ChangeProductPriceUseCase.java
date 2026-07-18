@@ -6,19 +6,15 @@ import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.Money;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 /** Changes the price of an existing product. */
 @Service
+@RequiredArgsConstructor
 public class ChangeProductPriceUseCase {
 
     private final ProductRepository products;
-
-    public ChangeProductPriceUseCase(ProductRepository products) {
-        this.products = Objects.requireNonNull(products, "products");
-    }
 
     public void handle(ChangeProductPriceCommand command) {
         ProductId id = ProductId.of(command.productId());

@@ -6,19 +6,15 @@ import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.Money;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 /** Updates the editable details of an existing product (name, description, price). */
 @Service
+@RequiredArgsConstructor
 public class UpdateProductUseCase {
 
     private final ProductRepository products;
-
-    public UpdateProductUseCase(ProductRepository products) {
-        this.products = Objects.requireNonNull(products, "products");
-    }
 
     public void handle(UpdateProductCommand command) {
         ProductId id = ProductId.of(command.productId());

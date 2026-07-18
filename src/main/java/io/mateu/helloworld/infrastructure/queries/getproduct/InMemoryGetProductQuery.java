@@ -5,20 +5,17 @@ import io.mateu.helloworld.application.queries.getproduct.GetProductQuery;
 import io.mateu.helloworld.domain.aggregates.product.Product;
 import io.mateu.helloworld.domain.aggregates.product.valueobjects.ProductId;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /** Infrastructure implementation of the {@link GetProductQuery} read side. */
 @Component
+@RequiredArgsConstructor
 public class InMemoryGetProductQuery implements GetProductQuery {
 
     private final ProductRepository products;
-
-    public InMemoryGetProductQuery(ProductRepository products) {
-        this.products = Objects.requireNonNull(products, "products");
-    }
 
     @Override
     public Optional<Product> handle(ProductId id) {
